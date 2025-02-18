@@ -54,9 +54,11 @@ async function summarize() {
         console.log(data)
 
         endLoading()
-        enableCopyButton()
 
         summaryOutputArea.value = data.choices[0].message.content
+        enableSummaryOutputArea()
+        enableCopyButton()
+        focusOnCopyButton()
     } catch (error) {
         handleError(error)
     }
