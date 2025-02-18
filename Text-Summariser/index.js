@@ -31,6 +31,7 @@ summaryLengthInput.addEventListener('input', updateSummaryLengthText)
 async function summarize() {
     startLoading();
     const text = textInputArea.value;
+    const summaryLength = summaryLengthInput.value
 
     try {
         const response = await fetch('http://localhost:3000/summarize', {
@@ -38,19 +39,22 @@ async function summarize() {
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({ text })
+            body: JSON.stringify({ text, summaryLength })
         });
 
         // Parse json response
-        const data = await response.json();
+        const data = await response.json()
         // Check for errors in the response
         if(data.error) {
             throw new Error(data.error);
         }
         // Log data to web console
+        console.log("Text: ", text)
+        console.log("Summary length: ", summaryLength)
         console.log(data)
 
         endLoading()
+        enableCopyButton()
 
         summaryOutputArea.value = data.choices[0].message.content
     } catch (error) {

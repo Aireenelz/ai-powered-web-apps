@@ -17,15 +17,17 @@ app.get('/', (req, res) => {
 
 app.post('/summarize', async (req, res) => {
     try {
-        const { text } = req.body;
+        const { text, summaryLength } = req.body;
 
         const response = await axios.post(
             'https://api.openai.com/v1/chat/completions',  // OpenAI endpoint
             {
                 model: 'gpt-3.5-turbo',
                 messages: [
-                    //{ role: 'system', content: 'You are a helpful assistant.' },
-                    { role: 'user', content: `Summarize the following text: ${text}` },
+                    // Prompt engineering
+                    { role: 'system', content: 'You are a text summarizer. When asked to summarize a text, send back the summary of it. Please only send back the summary without prefixing it with things like "Summary" or telling where the text is from. Also give me the summary as if the original author wrote it and without using a third person voice.' },
+                    // User prompt
+                    { role: 'user', content: `Summarize the following text into ${summaryLength} words: ${text}` },
                 ],
                 max_tokens: 200,
                 temperature: 0.7,
