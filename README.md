@@ -16,12 +16,7 @@ This repository contains AI-powered web applications:
 
 ## Setup
 1. Clone the repository
-2. Install dependencies
-   npm install
-3. Set up environment variables
-   Create a .env file in the server directory and add:
-   OPENAI_API_KEY=api_key_goes_here
-4. Run the server
-   node server.js
-5. Access the application
-   Open http://localhost:3000 in your browser
+2. Install dependencies: npm install
+3. Set up environment variables, create a .env file in the server directory and add: OPENAI_API_KEY=api_key_goes_here
+4. Run the server: node server.js
+5. Access the application: open http://localhost:3000 in your browser
