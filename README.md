@@ -4,9 +4,9 @@ This repository contains AI-powered web applications:
 2. Image Describer – Generates image descriptions using OpenAI's API.
 
 ## Tech Stack
-Frontend: HTML, CSS, JavaScript
-Backend: Node.js, Express.js
-AI Integration: OpenAI API
+- Frontend: HTML, CSS, JavaScript
+- Backend: Node.js, Express.js
+- AI Integration: OpenAI API
 
 ## Features
 - Text summarization for any input text
