@@ -1,5 +1,5 @@
 // Imports
-import { fetchImageAndReturnBase64ImageData } from '/Image-Describer/utils/fetchImageAndReturnBase64ImageData.js'
+import { fetchImageAndReturnBase64ImageData } from '/utils/fetchImageAndReturnBase64ImageData.js'
 
 // Constants and Variables
 const feedbackDisplayTime = 3000
@@ -43,17 +43,47 @@ descriptionLengthInput.addEventListener('input', updateDescriptionLengthText)
 
 // Button Event Handlers
 async function describe() {
-    startLoading()
+    startLoading();
+    
+    // Convert uploaded image to Base64
     const base64ImageData = await fetchImageAndReturnBase64ImageData(imageUrl)
-    console.log(base64ImageData)
+    const descriptionLength = descriptionLengthInput.value
+
+    console.log("base64: ", base64ImageData)
+
+    try {
+        const response = await fetch('http://localhost:3000/describe', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ base64ImageData, descriptionLength })
+        })
+
+        const data = await response.json()
+
+        if (data.error) {
+            throw new Error(data.error)
+        }
+
+        // Display output
+        endLoading()
+        descriptionOutputArea.value = data.choices[0].message.content
+        enableDescriptionOutputArea()
+        enableCopyButton()
+        focusOnCopyButton()
+
+    } catch (error) {
+        handleError(error)
+    }
 }
 
 async function copy() {
     try {
         await navigator.clipboard.writeText(descriptionOutputArea.value)
-        showCopyFeedback('😄 Copied', 'success')
+        showCopyFeedback('Text copied!', 'success')
     } catch (err) {
-        showCopyFeedback('😔 Failed', 'failure')
+        showCopyFeedback('Failed to copy.', 'failure')
     }
 }
 
