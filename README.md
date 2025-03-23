@@ -20,3 +20,6 @@ This repository contains AI-powered web applications:
 3. Set up environment variables, create a .env file in the server directory and add: OPENAI_API_KEY=api_key_goes_here
 4. Run the server: node server.js
 5. Access the application: open http://localhost:3000 in your browser
+
+## Demo
+View examples of the applications by checking the output PNG files provided for each application in the repository. 
